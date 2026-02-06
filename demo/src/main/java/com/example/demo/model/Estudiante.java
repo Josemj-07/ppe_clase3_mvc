@@ -1,28 +1,33 @@
 package com.example.demo.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.Getter;
+import lombok.Setter;
 
+@Entity
+@Table(name = "estudiantes")
+@Getter
+@Setter
 public class Estudiante {
-    private final @Getter  long id;
-    private final  @Getter String nombre;
-    private  @Getter String carrera;
 
-    public Estudiante(long id, String nombre, String carrera) {
-        if(id < 0 || nombre == null) {
-            throw new IllegalArgumentException("No se han ingresado suficientes parámetros");
+    @Id
+    private Long id;
+
+    private String nombre;
+    private String carrera;
+
+    protected Estudiante() {
+
+    }
+
+    public Estudiante(Long id, String nombre, String carrera) {
+        if (id == null || nombre == null) {
+            throw new IllegalArgumentException("Datos inválidos");
         }
-
-        this.carrera = carrera;
-        this.nombre = nombre;
         this.id = id;
+        this.nombre = nombre;
+        this.carrera = carrera;
     }
-
-    public Estudiante setCarrera(String nuevaCarrera) {
-        if(nuevaCarrera == null) {
-            throw new IllegalArgumentException("No se ha ingresado una nueva carrera");
-        }
-        this.carrera = nuevaCarrera;
-        return this;
-    }
-
 }
